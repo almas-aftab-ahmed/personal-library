@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        h1 { color: #333; }
+        .pdf-container { margin: 20px auto; width: 80%; height: 500px; }
+        .back-btn { display: inline-block; margin-top: 20px; padding: 10px; background: #007BFF; color: white; text-decoration: none; border-radius: 5px; }
+        .back-btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>{{ book.title }}</h1>
+    <h3>By {{ book.author }}</h3>
+
+    {% if book.pdf %}
+        <iframe src="{{ book.pdf }}" class="pdf-container"></iframe>
+    {% else %}
+        <p>Sorry, this book's content is not available yet.</p>
+    {% endif %}
+
+    <a href="/" class="back-btn">Back to Library</a>
+</body>
+</html>

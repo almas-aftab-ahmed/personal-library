@@ -1,0 +1,14 @@
+{% extends "home.html" %}
+{% block content %}
+<h2>❌ Unread Books</h2>
+{% for book in books %}
+    <div class="book-card">
+        <img src="{{ book.cover }}" alt="Book Cover">
+        <div>
+            <strong>{{ book.title }}</strong> by {{ book.author }}
+            <a href="/toggle_read/{{ loop.index0 }}"><button>Mark Read</button></a>
+            <a href="/delete/{{ loop.index0 }}"><button>Delete</button></a>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 My Library</title>
+    <style>
+        body {
+            background-color: #f8e8c3;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #8b5e3c;
+            color: white;
+            border-radius: 10px;
+        }
+        h1 { text-align: center; }
+        nav {
+            text-align: center;
+            padding: 10px;
+            background: #6b4226;
+            margin-bottom: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 5px;
+            background: #d9a066;
+        }
+        .book-card {
+            display: flex;
+            align-items: center;
+            background: #f4d9a5;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .book-card img {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            border: none;
+            background: #6b4226;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/">🏠 Home</a>
+    <a href="/read_books">📖 Read Books</a>
+    <a href="/unread_books">📚 Unread Books</a>
+    <a href="https://www.google.com/search?q=best+books+to+read" target="_blank">🔍 Book Suggestions</a>
+</nav>
+
+<div class="container">
+    <h1>📚 My Library</h1>
+
+    <p>Total: {{ total_books }} | Read: {{ read_books }} | Unread: {{ unread_books }}</p>
+
+    <form action="/add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Book Title" required>
+        <input type="text" name="author" placeholder="Author" required>
+        <input type="text" name="cover" placeholder="Cover URL (optional)">
+        <input type="file" name="pdf" accept="application/pdf" required>
+        <button type="submit">➕ Add Book</button>
+    </form>
+
+    <hr>
+
+    {% for book in books %}
+    <div class="book-card">
+        <img src="{{ book.cover }}" alt="Book Cover">
+        <div>
+            <strong><a href="/book/{{ loop.index0 }}" target="_blank">{{ book.title }}</a></strong> by {{ book.author }}  
+            <a href="/toggle_read/{{ loop.index0 }}">
+                <button>
+                    {% if book.read %} ✅ Mark as Unread {% else %} 📖 Mark as Read {% endif %}
+                </button>
+            </a>
+            <a href="/delete/{{ loop.index0 }}"><button>❌ Delete</button></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
